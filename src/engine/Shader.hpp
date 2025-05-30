@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <string>
 
 class Shader
 {
@@ -12,15 +13,14 @@ public:
     Shader &operator=(const Shader &) = default;
     ~Shader();
 
-    void init(const char* vertexShaderSource, const char* fragmentShaderSource);
-    void build();
-    unsigned int getShaderProgram();
+    void build(std::string vertexShaderPath, std::string fragmentShaderPath);
+    GLuint getShaderProgram();
 
 private:
-    const char* vertexShaderSource;
-    const char* fragmentShaderSource;
+    std::string vertexShaderPath;
+    std::string fragmentShaderPath;
 
-    unsigned int vertexShader;
-    unsigned int fragmentShader;
-    unsigned int shaderProgram;
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint shaderProgram;
 };

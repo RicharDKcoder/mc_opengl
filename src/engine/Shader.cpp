@@ -1,6 +1,7 @@
 #include "Shader.hpp"
-
 #include <iostream>
+#include <string>
+#include "IOUtil.hpp"
 
 Shader::Shader()
 {
@@ -10,14 +11,18 @@ Shader::~Shader()
 {
 }
 
-void Shader::init(const char* vertexShaderSource, const char* fragmentShaderSource){
-    this->vertexShaderSource = vertexShaderSource;
-    this->fragmentShaderSource = fragmentShaderSource;
-}
+void Shader::build(std::string vertexShaderPath, std::string fragmentShaderPath){
+    this->vertexShaderPath = vertexShaderPath;
+    this->fragmentShaderPath = fragmentShaderPath;
 
-void Shader::build(){
+    std::string vertexShaderCode = IOUtil::readFile(this->vertexShaderPath);
+    std::string fragmentShaderCode = IOUtil::readFile(this->fragmentShaderPath);
+
+    const char* vertexShaderSource = vertexShaderCode.c_str();
+    const char* fragmentShaderSource = fragmentShaderCode.c_str();
+
     this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(this->vertexShader, 1, &this->vertexShaderSource, NULL);
+    glShaderSource(this->vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(this->vertexShader);
 
     int success;
@@ -31,7 +36,7 @@ void Shader::build(){
 
 
     this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(this->fragmentShader, 1, &this->fragmentShaderSource, NULL);
+    glShaderSource(this->fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(this->fragmentShader);
 
 
@@ -57,6 +62,6 @@ void Shader::build(){
     glDeleteShader(this->fragmentShader);
 }
 
-unsigned int Shader::getShaderProgram(){
+GLuint Shader::getShaderProgram(){
     return this->shaderProgram;
 }

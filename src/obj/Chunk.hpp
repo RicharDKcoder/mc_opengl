@@ -12,7 +12,8 @@ public:
     Chunk &operator=(const Chunk &) = default;
     ~Chunk();
 
-private:
 protected:
     void initData();
+    void initShader();
+    void render();
 };

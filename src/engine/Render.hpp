@@ -1,6 +1,6 @@
 #pragma once
 #include "Shader.hpp"
-
+#include <string>
 
 class Render
 {
@@ -13,11 +13,13 @@ public:
     ~Render();
 
     int init();
-    void render();
-private:
-    Shader shader;
+    virtual void render() = 0;
 
 protected:
-    unsigned int VBO, VAO, EBO;
+    GLuint  VBO, VAO, EBO;
+    std::string vertexShaderPath, fragmentShaderPath;
+    Shader shader;
+
     virtual void initData() = 0;
+    virtual void initShader() = 0;
 };

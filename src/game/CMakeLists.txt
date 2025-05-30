@@ -9,11 +9,21 @@ file(GLOB_RECURSE SOURCES
 
 # find_package(glfw3 CONFIG REQUIRED)
 # find_package(glad CONFIG REQUIRED)
-find_package(glm CONFIG REQUIRED)
+# find_package(glm CONFIG REQUIRED)
 find_package(Stb REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
+
+message("CMAKE_SOURCE_DIR" ${CMAKE_SOURCE_DIR})
+message("CMAKE_BINARY_DIR" ${CMAKE_BINARY_DIR})
+add_custom_target(copy_resources ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources
+        ${CMAKE_BINARY_DIR}/resources
+        COMMENT "Copying resources into binary directory"
+)
+add_dependencies(${PROJECT_NAME} copy_resources)
 
 # 包含目录
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -23,8 +33,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE 
     # glfw
     # glad::glad
-    engine
-    glm::glm
+    obj
     imgui::imgui
 )
 
