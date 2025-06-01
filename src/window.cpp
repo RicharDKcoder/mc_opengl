@@ -35,6 +35,8 @@ bool Window::init()
     glfwMakeContextCurrent(this->id);
     //glfwSetFramebufferSizeCallback(this->id, framebuffer_size_callback);
 
+    glfwSwapInterval(0);
+
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

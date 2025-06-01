@@ -4,9 +4,12 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
+#include <imgui.h>
+#include <stdio.h>
 
 UI::UI()
 {
+    
 }
 
 UI::~UI()
@@ -18,6 +21,7 @@ void UI::init(GLFWwindow *mainWindow){
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
+
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
@@ -31,10 +35,12 @@ void UI::loop_start(){
     // (Your code calls glfwPollEvents())
     // ...
     // Start the Dear ImGui frame
+    ImGuiIO& io = ImGui::GetIO();
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    ImGui::ShowDemoWindow(); // Show demo window! :)
+    ImGui::Text("FPS: %.1f", io.Framerate);
+    // ImGui::ShowDemoWindow(); // Show demo window! :)
 }
 
 void UI::loop_end(){

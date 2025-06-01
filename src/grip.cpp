@@ -68,6 +68,8 @@ void Grip::build(){
 	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 	// Gather noise data
     float offset[this->width * this->height * 3];
+    // int offsetSize = this->width * this->height * 3;
+    // float *offset = new float[offsetSize];
     int index = 0;
     for (int x = -this->width / 2; x < this->width / 2; x++)
     {
@@ -116,6 +118,7 @@ void Grip::build(){
 		glGenBuffers(1, &VBO_Instance);
 		// 第一个数据缓存定义完成
 		glBindBuffer(GL_ARRAY_BUFFER, VBO_Instance);
+		// glBufferData(GL_ARRAY_BUFFER, sizeof(offset), offset, GL_STATIC_DRAW);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(offset), offset, GL_STATIC_DRAW);
 		// offset attribute
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);

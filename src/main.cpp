@@ -48,8 +48,8 @@ int main()
     }
     stbi_image_free(data);
 
-    int gripWidth = 50;
-    int gripHeight = 50;
+    int gripWidth = 200;
+    int gripHeight = 200;
     Grip vao(gripWidth,gripHeight);
     
     //vao.build(vertices, sizeof(vertices), indices, sizeof(indices));
@@ -98,7 +98,7 @@ int main()
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
         // create view transformations
-        float radius = 100.0f;
+        float radius = 80.0f;
         float camX = sin(glfwGetTime()) * radius;
         float camZ = cos(glfwGetTime()) * radius;
         glm::mat4 view = glm::lookAt(glm::vec3(camX, 50.0,camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
